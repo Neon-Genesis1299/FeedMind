@@ -114,15 +114,13 @@ Contributions are always welcome!
 4. 📤 Push to branch: `git push origin feature/your-feature`
 5. 🔁 Open a Pull Request
 
-## 🛡️ License
 
-This project is licensed under the MIT License — free to use, modify, and distribute with attribution.
 
 ## ✨ Team FeedMind
 
 | Name                   | Role                      | GitHub               |
 |------------------------|---------------------------|----------------------|
-| Nitesh Dipak Badgujar | AI/ML Developer & Project Lead | [@Nitesh-Badgujar](https://github.com/Nitesh-Badgujar-28906) |
+| Nitesh Dipak Badgujar | AI/ML Developer| [@Nitesh-Badgujar](https://github.com/Nitesh-Badgujar-28906) |
 | Member 2              | Frontend Developer       | —                    |
 | Member 3              | Backend Developer        | —                    |
 | Member 4              | Data Analyst             | —                    |
