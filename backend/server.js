@@ -1,7 +1,9 @@
-require('dotenv').config();
-const app = require('./src/app');
+import app from './src/app.js';
+import connectDB from './src/config/database.js';
 
-const PORT = process.env.PORT || 5000;
+const PORT = app.get('port')
+
+connectDB();          //connect to MongoDB befor starting the server
 
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running on port ${PORT}`);

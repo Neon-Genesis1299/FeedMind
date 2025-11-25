@@ -1,32 +1,41 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+import express from 'express';
+import compression from 'compression';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+import router from './routes/index.js';
 
+dotenv.config();
 const app = express();
 
-// Middleware
-app.use(helmet());
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.set('port', process.env.PORT || 4000);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'FeedMind Backend API is running',
-    timestamp: new Date().toISOString(),
-  });
+app.use([compression(),
+  express.json(),
+  express.urlencoded({ extended: false })]);
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+app.use('/api/', router);
+
+
+app.use((req, res, next) => {
+  res.status(404).json('bad request');
 });
+app.use(
+  (
+    error,
+    req,
+    res,
+    next,
+  ) => {
+    if (error.status) {
+      res.status(error.status).json(error.message);
+    } else {
+      res.status(500).json('interval server error');
+    }
+  },
+);
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    status: 'error',
-    message: 'Route not found',
-  });
-});
-
-module.exports = app;
+export default app;
