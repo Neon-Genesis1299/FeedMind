@@ -1,15 +1,19 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
-    try {
-        const connection = await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
-        console.log(`MongoDB Connected: ${connection.connection.host}`);
-    } catch (error) {
-        console.error("MongoDB Connection Error:", error.message);
+    if (process.env.MONGODB_URI){
+        try {
+            const connection = await mongoose.connect(
+                process.env.MONGODB_URI
+            );
+    
+            console.log(`MongoDB Connected: ${connection.connection.host}`);
+        } catch (error) {
+            console.error("MongoDB Connection Error:", error.message);
+            process.exit(1);
+        }
+    } else {
+        console.error("MONGODB_URI environment variable is not set");
         process.exit(1);
     }
 };
